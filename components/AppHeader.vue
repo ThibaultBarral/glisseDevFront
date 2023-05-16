@@ -1,21 +1,40 @@
 <script>
 export default {
-  methods: {
-    toggleMenu() {
-      const navElement = document.querySelector('nav');
-      navElement.classList.toggle('open-menu');
+
+    mounted() {
+        window.addEventListener('scroll', this.handleScroll);
+    },
+    beforeUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
+    },
+    methods: {
+        toggleMenu() {
+            const navElement = document.querySelector('nav');
+            navElement.classList.toggle('open-menu');
+        },
+
+        handleScroll() {
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollThreshold = window.innerHeight * 0.05; // 5vh
+            if (scrollPosition > scrollThreshold) {
+                this.$refs.header.classList.add('scroll');
+            } else {
+                this.$refs.header.classList.remove('scroll');
+            }
+        }
     }
-  }
-}
+};
+
+
 
 </script>
 
 
 <template>
-    <header>
+    <header ref="header">
         <nav>
-            <NuxtLink to="/">            <img src="../assets/img/logo.svg" alt="logo">
-</NuxtLink>
+            <NuxtLink to="/"> <img src="../assets/img/logo.svg" alt="logo">
+            </NuxtLink>
             <ul>
                 <li>
                     <NuxtLink to="/">Accueil</NuxtLink>
@@ -36,9 +55,11 @@ export default {
 img {
     @apply h-24 w-24
 }
+
 nav {
     @apply items-center flex mx-4
 }
+
 ul {
     @apply flex gap-4 uppercase text-white ms-8
 }
@@ -49,6 +70,10 @@ li {
 
 header {
     @apply fixed top-0 w-full
+}
+
+header.scroll {
+    @apply static
 }
 
 /* nav {
@@ -81,5 +106,4 @@ nav.open-menu {
 #btn-burger span:nth-child(3) {
     @apply top-full -translate-y-1/2
 }  */
-
 </style>
