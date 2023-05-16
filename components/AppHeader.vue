@@ -14,7 +14,8 @@ export default {
 <template>
     <header>
         <nav>
-            <img src="../assets/img/logo.svg" alt="logo">
+            <NuxtLink to="/">            <img src="../assets/img/logo.svg" alt="logo">
+</NuxtLink>
             <ul>
                 <li>
                     <NuxtLink to="/">Accueil</NuxtLink>
